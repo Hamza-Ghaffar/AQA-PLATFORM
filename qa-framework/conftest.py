@@ -1,6 +1,7 @@
 import pytest
 from playwright.sync_api import sync_playwright
 
+#THIS is called dependency injection
 @pytest.fixture
 def page():
     """
