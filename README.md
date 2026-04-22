@@ -5,7 +5,25 @@
 ---
 
 ## 🎯 Core Concept
+ARRANGE – ACT – ASSERT (AAA Pattern)
+✔ SINGLE RESPONSIBILITY TESTS
 
+Each test should verify ONE behavior:
+
+❌ bad:
+
+login + logout + dashboard in one test
+
+✔ good:
+
+test_login_success_only()
+✔ INDEPENDENCY RULE
+
+Each test must:
+
+NOT depend on previous test
+NOT share state
+be fully isolated
 Transform QA from manual scripting into **intelligent automation**:
 
 ```

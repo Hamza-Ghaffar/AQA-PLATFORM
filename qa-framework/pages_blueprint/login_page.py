@@ -8,7 +8,7 @@ class LoginPage:
         
         
 
-    def open(self, url):
+    def open(self, url="https://opensource-demo.orangehrmlive.com"):
         self.page.goto(url)
 
     def login_data(self, user, pwd):
