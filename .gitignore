@@ -1,0 +1,66 @@
+
+# =====================
+# Python / Virtual Env
+# =====================
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# =====================
+# uv / packaging
+# =====================
+uv.lock
+.pytest_cache/
+
+# =====================
+# Environment variables
+# =====================
+.env
+.env.*
+!.env.example
+
+# =====================
+# IDE / Editor
+# =====================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =====================
+# OS files
+# =====================
+.DS_Store
+Thumbs.db
+
+# =====================
+# Testing / Playwright
+# =====================
+playwright-report/
+test-results/
+blob-report/
+playwright/.cache/
+
+# =====================
+# Logs
+# =====================
+*.log
+logs/
+
+# =====================
+# Docker (optional local overrides)
+# =====================
+docker-compose.override.yml
+
+# =====================
+# Jupyter (if used later)
+# =====================
+.ipynb_checkpoints/
