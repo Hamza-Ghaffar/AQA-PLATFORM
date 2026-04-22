@@ -1,8 +1,11 @@
-def test_login(page):
-    page.goto("https://opensource-demo.orangehrmlive.com")
+from pages_blueprint.login_page import LoginPage
+from pages_blueprint.dashboard_page import DashboardPage
 
-    page.fill("input[name='username']", "Admin")
-    page.fill("input[name='password']", "admin123")
-    page.click("button[type='submit']")
+def test_valid_login(page):
+    login = LoginPage(page)
+    dashboard = DashboardPage(page)
 
-    assert "dashboard" in page.url.lower()
+    login.open("https://opensource-demo.orangehrmlive.com")
+    login.login_data("Admin", "admin123")
+
+    assert dashboard.is_loaded()
