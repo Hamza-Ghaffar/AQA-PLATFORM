@@ -1,0 +1,140 @@
+name: AQA QA Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Feature branch to test"
+        required: true
+        default: "develop"
+
+jobs:
+
+# =========================================================
+# 🟢 STAGE 1 — SMOKE GATE (BLOCKER)
+# =========================================================
+  smoke-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install UV
+        run: pip install uv
+
+      - name: Install Dependencies (UV)
+        run: |
+          uv sync
+          uv run playwright install --with-deps
+
+      - name: Run Smoke Tests (GATE)
+        run: |
+          mkdir -p reports
+          uv run pytest qa-framework/pages_blueprint/tests/ -m smoke \
+          --html=reports/smoke.html \
+          --self-contained-html
+
+      - name: Upload Smoke Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-report
+          path: reports/
+
+# =========================================================
+# 🟡 STAGE 2 — EDGE TESTS
+# =========================================================
+  edge-tests:
+    runs-on: ubuntu-latest
+    needs: smoke-tests
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install UV
+        run: pip install uv
+      - name: Install Dependencies (UV)
+        run: |
+          uv sync
+          uv run playwright install --with-deps
+      - name: Run Edge Tests
+        run: |
+          mkdir -p reports
+          uv run pytest qa-framework/pages_blueprint/tests/ -m edge \
+          --html=reports/edge.html \
+          --self-contained-html
+      - name: Upload Edge Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: edge-report
+          path: reports/
+
+# =========================================================
+# 🟠 STAGE 3 — FUNCTIONAL TESTS
+# =========================================================
+  functional-tests:
+    runs-on: ubuntu-latest
+    needs: smoke-tests
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install UV
+        run: pip install uv
+      - name: Install Dependencies (UV)
+        run: |
+          uv sync
+          uv run playwright install --with-deps
+      - name: Run Functional Tests
+        run: |
+          mkdir -p reports
+          uv run pytest qa-framework/pages_blueprint/tests/ -m functional \
+          --html=reports/functional.html \
+          --self-contained-html
+      - name: Upload Functional Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: functional-report
+          path: reports/
+
+# =========================================================
+# 🔴 STAGE 4 — NEGATIVE TESTS
+# =========================================================
+  negative-tests:
+    runs-on: ubuntu-latest
+    needs: smoke-tests
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install UV
+        run: pip install uv
+      - name: Install Dependencies (UV)
+        run: |
+          uv sync
+          uv run playwright install --with-deps
+      - name: Run Negative Tests
+        run: |
+          mkdir -p reports
+          uv run pytest qa-framework/pages_blueprint/tests/ -m negative \
+          --html=reports/negative.html \
+          --self-contained-html
+      - name: Upload Negative Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: negative-report
+          path: reports/
