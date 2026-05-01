@@ -50,6 +50,7 @@ jobs:
           --self-contained-html
 
       - name: Upload Smoke Report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: smoke-report
@@ -87,6 +88,7 @@ jobs:
           --html=reports/edge.html \
           --self-contained-html
       - name: Upload Edge Report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: edge-report
@@ -124,6 +126,7 @@ jobs:
           --html=reports/functional.html \
           --self-contained-html
       - name: Upload Functional Report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: functional-report
@@ -161,6 +164,7 @@ jobs:
           --html=reports/negative.html \
           --self-contained-html
       - name: Upload Negative Report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: negative-report
