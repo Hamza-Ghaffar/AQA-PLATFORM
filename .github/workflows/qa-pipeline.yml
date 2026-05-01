@@ -45,7 +45,7 @@ jobs:
       - name: Run Smoke Tests (GATE)
         run: |
           mkdir -p reports
-          uv run pytest qa-framework/pages_blueprint/tests/ -m smoke \
+          uv run pytest qa-framework/tests/smoke/ -m smoke \
           --html=reports/smoke.html \
           --self-contained-html
 
@@ -83,7 +83,7 @@ jobs:
       - name: Run Edge Tests
         run: |
           mkdir -p reports
-          uv run pytest qa-framework/pages_blueprint/tests/ -m edge \
+          uv run pytest qa-framework/tests/edge/ -m edge \
           --html=reports/edge.html \
           --self-contained-html
       - name: Upload Edge Report
@@ -120,7 +120,7 @@ jobs:
       - name: Run Functional Tests
         run: |
           mkdir -p reports
-          uv run pytest qa-framework/pages_blueprint/tests/ -m functional \
+          uv run pytest qa-framework/tests/functional/ -m functional \
           --html=reports/functional.html \
           --self-contained-html
       - name: Upload Functional Report
@@ -157,7 +157,7 @@ jobs:
       - name: Run Negative Tests
         run: |
           mkdir -p reports
-          uv run pytest qa-framework/pages_blueprint/tests/ -m negative \
+          uv run pytest qa-framework/tests/negative/ -m negative \
           --html=reports/negative.html \
           --self-contained-html
       - name: Upload Negative Report
