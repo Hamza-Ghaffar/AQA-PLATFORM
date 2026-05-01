@@ -10,7 +10,10 @@ authors = [{name = "Hamza Ghaffar", email = "hamza.ghaffa.edu@gmail.com"}]
 readme = "README.md"
 requires-python = ">=3.9"
 license = {text = "MIT"}
-dependencies = []
+dependencies = [
+    "pytest-html>=4.2.0",
+    "pytest-order>=1.4.0",
+]
 
 [project.optional-dependencies]
 dev = [

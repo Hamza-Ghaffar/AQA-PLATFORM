@@ -3,4 +3,12 @@ class DashboardPage:
         self.page = page
 
     def is_loaded(self):
-        return "dashboard" in self.page.url.lower()
+        # Wait for the dashboard breadcrumb/header to be visible, then check
+        locator = self.page.locator(".oxd-topbar-header-breadcrumb")
+        try:
+            locator.wait_for(state="visible", timeout=5000)
+            return locator.is_visible()
+        except Exception:
+            return False
+    
+    
