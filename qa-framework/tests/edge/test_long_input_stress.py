@@ -1,6 +1,8 @@
 from pages_blueprint.login_page import LoginPage
 import pytest
 @pytest.mark.edge
+@pytest.mark.order(3)
+@pytest.mark.p2
 def test_login_long_input(page):
     login = LoginPage(page)
 

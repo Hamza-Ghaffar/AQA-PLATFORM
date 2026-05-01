@@ -2,6 +2,8 @@ from pages_blueprint.login_page import LoginPage
 import pytest
 
 @pytest.mark.functional
+@pytest.mark.order(2)
+@pytest.mark.p1
 def test_login_ui_elements(page):
     login = LoginPage(page)
 
